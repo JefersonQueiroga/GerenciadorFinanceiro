@@ -1,0 +1,2 @@
+#criar comandos
+python .\manage.py startapp movimentacoes .\apps\movimentacoes
