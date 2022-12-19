@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-from .models import Cliente, Endereco
+from .models import *
 
-# Register your models here.
-
-admin.site.register(Cliente)
-admin.site.register(Endereco)
+admin.site.register(Transaction)
+admin.site.register(Category)
+admin.site.register(FormPayment)

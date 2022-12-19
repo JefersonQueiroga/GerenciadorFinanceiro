@@ -1,20 +1,27 @@
+from django import forms
 from django.forms import ModelForm, inlineformset_factory
 
-from apps.transactions.models import Cliente, Endereco
+from apps.transactions.models import Transaction
 
 
-class EnderecoForm(ModelForm):
+class TransactionForm(ModelForm):
+    
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(TransactionForm, self).__init__(*args, **kwargs)
+            
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    
     class Meta:
-        model = Endereco
-        fields = ["logradouro"]
+        model = Transaction
+        fields = ["description", "type_operation", "form_payment", "category","date_transaction",]
+        
+        widgets = {
+            'date_transaction': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
 
-
-class ClienteForm(ModelForm):
-    class Meta:
-        model = Cliente
-        fields = ["nome", "email", "data_nascimento"]
-
-
-EnderecoFormSet = inlineformset_factory(
-    Cliente, Endereco, form=EnderecoForm, extra=1, can_delete=True
-)
+    
+        
+    

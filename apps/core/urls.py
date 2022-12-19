@@ -1,4 +1,8 @@
-from core import views
 from django.urls import path
 
-urlpatterns = []
+from .views import TemplateView
+
+app_name = "core"
+urlpatterns = [
+    # path("create/", ClienteCreateView.as_view(), name="create"),
+]

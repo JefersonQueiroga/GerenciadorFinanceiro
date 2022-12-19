@@ -6,31 +6,46 @@ from apps.core.models import BaseModel
 # Create your models here.
 
 
-class Cliente(BaseModel):
-    nome = models.CharField(max_length=100)
-    email = models.EmailField()
-    data_nascimento = models.DateField()
+class FormPayment(BaseModel):
+    name = models.CharField(max_length=70)
+    active = models.BooleanField()
+    class Meta:
+        verbose_name = ("Forma de Pagamento")
+        verbose_name_plural = ("Formas de Pagamento")
 
+    def __str__(self):
+        return self.name
+   
 
-class Endereco(BaseModel):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    logradouro = models.CharField(max_length=150)
+class Category(BaseModel):
+    name = models.CharField(max_length=100)
+    class Meta:
+        verbose_name = ("Categoria")
+        verbose_name_plural = ("Categorias")
 
+    def __str__(self):
+        return self.name
+   
 
-class FormaPagamento(BaseModel):
-    nome = models.CharField(max_length=70)
-    ativo = models.BooleanField()
-
-
-class Transacao(BaseModel):
-    class TipoOperacao(models.TextChoices):
+class Transaction(BaseModel):
+    class CHOICE_TIPO_OPERACAO(models.TextChoices):
         RECEITA = "RECEITA", ("Receita")
         DESPESA = "DESPESA", ("Despesa")
 
-    descricao = models.CharField(max_length=200)
-    tipo_categoria = models.CharField(
-        max_length=10, choices=TipoOperacao.choices, verbose_name="Tipo Categoria"
+    description = models.CharField(max_length=200)
+    type_operation = models.CharField(
+        max_length=10, choices=CHOICE_TIPO_OPERACAO.choices, verbose_name="Categoria"
     )
-    forma_pagamento = models.ForeignKey(
-        FormaPagamento, on_delete=models.SET_NULL, null=True, blank=True
+    form_payment = models.ForeignKey(
+        FormPayment, on_delete=models.SET_NULL, null=True, blank=True
     )
+    category = models.ForeignKey(Category, on_delete=models.ForeignKey)
+    date_transaction = models.DateField(verbose_name="Data da Transação")
+
+    class Meta:
+        verbose_name = ("Transação")
+        verbose_name_plural = ("Transações")
+
+    def __str__(self):
+        return self.description
+   

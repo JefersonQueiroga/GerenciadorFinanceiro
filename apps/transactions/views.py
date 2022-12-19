@@ -1,59 +1,25 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 
-from apps.transactions.models import Cliente
+from apps.transactions.models import *
 
-from .forms import ClienteForm, EnderecoFormSet
-
-
-class AdicionarPessoaView(CreateView):
-    def get(self, request, form, *args, **kwargs):
-        self.object = None
-        endereco_form = EnderecoFormSet(prefix="endereco_form")
-
-        return self.render_to_response(
-            self.get_context_data(
-                form=form,
-                endereco_form=endereco_form,
-            )
-        )
+from .forms import TransactionForm
 
 
-class ClienteCreateView(AdicionarPessoaView):
-    model = Cliente
-    template_name = "cadastro/pessoa_add.html"
-    success_url = reverse_lazy("transactions:listaclientesview")
-    success_message = "Cliente adicionado com sucesso."
-    permission_codename = "add_cliente"
+class TransactionCreateView(CreateView):
+    model = Transaction
+    form_class = TransactionForm
+    template_name = "transactions/transaction_form.html"
+    success_url = reverse_lazy("transactions:list")
 
-    def get(self, request, *args, **kwargs):
-        form = ClienteForm(prefix="cliente_form")
-        return super(ClienteCreateView, self).get(request, form, *args, **kwargs)
+class TransactionListView(ListView):
+    model = Transaction
+    queryset = Transaction.objects.all()
+    paginate_by = 2
 
-    def get_context_data(self, **kwargs):
+class TransactionUpdateView(UpdateView):
+    model = Transaction
+    form_class=TransactionForm
+    success_url = reverse_lazy("transactions:list")
 
-        context = super(ClienteCreateView, self).get_context_data(**kwargs)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        form = ClienteForm(request.POST, prefix="cliente_form")
-        endereco_form = EnderecoFormSet(request.POST, prefix="endereco_form")
-
-        if form.is_valid() and endereco_form.is_valid():
-            self.object = form.save(commit=False)
-            self.object.created_by = self.request.user
-            self.object.save()
-
-            # Salvar informacoes endereco
-            endereco_form.instance = self.object
-            endereco_form.save()
-
-            return self.form_valid(form)
-
-        return self.form_invalid(form=form, endereco_form=endereco_form)
-
-
-class ClienteListView(ListView):
-    template_name = "cadastro/pessoa_list.html"
-    model = Cliente
