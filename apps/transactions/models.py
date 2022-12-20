@@ -7,7 +7,7 @@ from apps.core.models import BaseModel
 
 
 class FormPayment(BaseModel):
-    name = models.CharField(max_length=70)
+    name = models.CharField('Nome', max_length=70)
     active = models.BooleanField()
     class Meta:
         verbose_name = ("Forma de Pagamento")

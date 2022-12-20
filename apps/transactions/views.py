@@ -15,8 +15,9 @@ class TransactionCreateView(CreateView):
 
 class TransactionListView(ListView):
     model = Transaction
+    context_object_name=''
     queryset = Transaction.objects.all()
-    paginate_by = 2
+    paginate_by =4
 
 class TransactionUpdateView(UpdateView):
     model = Transaction

@@ -5,9 +5,7 @@ from apps.transactions.models import Transaction
 
 
 class TransactionForm(ModelForm):
-    
-    
-    
+       
     def __init__(self, *args, **kwargs):
         super(TransactionForm, self).__init__(*args, **kwargs)
             
