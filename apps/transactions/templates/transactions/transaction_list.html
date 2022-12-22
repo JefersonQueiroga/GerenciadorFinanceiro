@@ -11,6 +11,33 @@
       </div>
     </div>
 
+    <form action="" method="get">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Input Text</h4>
+            </div>
+              <div class="card-body">
+                <div class="row">
+                <div class="form-group col-6">
+                  <label>Título da Transação</label>
+                  {{ form_filter.description }}
+                </div>
+
+                <div class="form-group col-6">
+                  <label>Título da Transação</label>
+                  {{ form_filter.type_operation }}
+                </div>
+                <input type="submit" value="Buscar"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </form>
+
     <div class="section-body">
       <p class="section-lead">                      
         <a href="{% url 'transactions:create' %}" class="btn btn-primary">Adicionar Nova Transação</a>
