@@ -28,6 +28,7 @@ class TransactionListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_filter"] = self.filterset.form
+
         return context
 
 

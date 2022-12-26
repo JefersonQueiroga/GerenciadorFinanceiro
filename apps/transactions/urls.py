@@ -8,7 +8,7 @@ from apps.transactions.views import (
 
 app_name = "transactions"
 urlpatterns = [
-    path("create/", TransactionCreateView.as_view(), name="create-transaction"),
-    path("list/", TransactionListView.as_view(), name="list-transaction"),
-    path("update/<int:pk>", TransactionUpdateView.as_view(), name="update-transaction"),
+    path("create/", TransactionCreateView.as_view(), name="create_transaction"),
+    path("list/", TransactionListView.as_view(), name="list_transaction"),
+    path("update/<int:pk>", TransactionUpdateView.as_view(), name="update_transaction"),
 ]
