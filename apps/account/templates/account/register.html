@@ -1,0 +1,127 @@
+{% extends 'master.html' %}
+
+{% block plugins_css %}
+  <link rel="stylesheet" href="../node_modules/selectric/public/selectric.css">
+{% endblock %}
+
+{% block content_2 %}
+    <section class="section">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 ">
+            
+            {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div id="form_errors">
+                        {% for key, value in form.errors.items %}
+                            <strong>{{ value }}</strong>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+
+            <div class="card card-primary">
+              <div class="card-header"><h4>Register</h4></div>
+
+              <div class="card-body">
+                <form method="POST" autocomplete="off">
+                  {% csrf_token %}
+
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label for="first_name">Primeiro Nome</label>
+                      {{ form.first_name }}
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="last_name">Último Nome</label>
+                      {{ form.last_name }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="form-group col-6">
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          {{ form.email }}
+                          <div class="invalid-feedback">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group col-6">
+                        <div class="form-group">
+                          <label for="email">Username</label>
+                          {{ form.username }}
+                          <div class="invalid-feedback">
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <div class="form-group">
+                        <label for="email">Cidade</label>
+                        {{ form.city }}
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group col-6">
+                      <div class="form-group">
+                        <label for="email">Estado</label>
+                        {{ form.state }}
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label for="password" class="d-block">Password</label>
+                      {{ form.password1 }}
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="password2" class="d-block">Password Confirmation</label>
+                      {{ form.password2 }}
+
+                    </div>
+                  </div>
+
+              
+                 <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Register
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="simple-footer">
+              Copyright &copy; Stisla 2018
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block plugins_js %}
+  <script src="../node_modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+  <script src="../node_modules/selectric/public/jquery.selectric.min.js"></script>
+{% endblock %}
+
+{% block page_js %}
+  <script src="../assets/js/page/auth-register.js"></script>
+{% endblock %}
