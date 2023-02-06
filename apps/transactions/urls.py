@@ -1,10 +1,14 @@
 from django.urls import path
 
+from rest_framework import routers
+from apps.transactions.api.viewsets import CategoryViewSet
+
 from apps.transactions.views import (
     TransactionCreateView,
     TransactionListView,
     TransactionUpdateView,
 )
+
 
 app_name = "transactions"
 urlpatterns = [

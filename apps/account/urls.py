@@ -21,6 +21,6 @@ from .views import RegisterView, MyLoginView
 app_name = "account"
 urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
-    path("login/", LoginView.as_view(template_name="account/login.html"), name="login"),
+    path("login/", MyLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
 ]

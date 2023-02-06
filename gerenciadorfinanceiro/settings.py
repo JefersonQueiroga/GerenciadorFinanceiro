@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_filters",
+    "rest_framework",
+    "rolepermissions",
     # my apps
     "apps.core",
     "apps.account",
@@ -136,3 +138,5 @@ AUTH_USER_MODEL = "account.User"
 LOGIN_URL = "account:login"
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "account:login"
+
+ROLEPERMISSIONS_MODULE = "gerenciadorfinanceiro.roles"

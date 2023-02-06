@@ -18,9 +18,16 @@ from django.urls import include, path
 
 from apps.core import views
 
+from rest_framework import routers
+from apps.transactions.api.viewsets import CategoryViewSet, TransactionViewSet
+
+router = routers.SimpleRouter()
+router.register("api/category", CategoryViewSet, basename="category")
+router.register("api/transaction", TransactionViewSet, basename="transaction")
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("transactions/", include("apps.transactions.urls", namespace="transactions")),
     path("account/", include("apps.account.urls", namespace="account")),
     path("", views.Home.as_view(), name="index"),
-]
+] + router.urls
